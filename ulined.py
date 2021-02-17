@@ -9,6 +9,7 @@ Script for InspIRCd to be a ulined puppet for opers
 
 import irc
 import logging
+import handler
 import config
 
 opers = []
@@ -18,7 +19,7 @@ irc.init()
 
 while True:
     line = irc.rx()
-    if line == None:
+    if line is None:
         logging.error("uline.py: Dead socket")
         exit(3)
     splt = line.split(" ")
@@ -28,14 +29,16 @@ while True:
         irc.stx("KILL " % config.irc_sid + splt[2] + " :%s" % text_kill_nickresv)
     elif len(splt) >= 10 and splt[1] == "UID":
         users[splt[2]] = splt[4]
-    elif len(splt) == 3 and splt[1] == "OPERTYPE" and  splt[2] == config.oper_type:
+    elif len(splt) == 3 and splt[1] == "OPERTYPE" and splt[2] == config.oper_type:
+        irc.utx(f"NOTICE {splt[0][1:]} :{config.text_operup}")
         opers.append(splt[0][1:])
-    elif len(splt) >= 4 and (splt[1] == "PRIVMSG"):
-        if splt[2] == config.client_uid and not (splt[3].startswith(":\x01") and splt[len(splt) - 1].endswith("\x01")):
-            if splt[0][1:] in opers:
-                cmd = ' '.join(splt[3:])[1:]
-                irc.utx("PRIVMSG %s :" % config.log_chan + users[splt[0][1:]] + " " + cmd)
-                irc.tx(cmd)
-                irc.utx(f"NOTICE {splt[0][1:]} :{config.text_ok}")
-            else:
-                irc.utx(f"NOTICE {splt[0][1:]} :{config.text_unauth}")
+    elif len(splt) >= 3 and (splt[1] == "PRIVMSG") and (splt[2] == config.client_uid and
+                                                        not (splt[3].startswith(":\x01")
+                                                             and splt[len(splt) - 1].endswith("\x01"))):
+        if splt[0][1:] in opers:
+            data = ' '.join(splt[3:])[1:]
+            irc.utx("PRIVMSG %s :" % config.log_chan + users[splt[0][1:]] + " " + data)
+            handler.handle(irc, users[splt[0][1:]], users, data)
+            irc.utx(f"NOTICE {splt[0][1:]} :{config.text_ok}")
+        else:
+            irc.utx(f"NOTICE {splt[0][1:]} :{config.text_unauth}")
