@@ -3,7 +3,7 @@ config.py
 
 Configuration file for ulined.py
 
-(c) andrewyu
+(c) bigfoot547, andrewyu
 """
 
 
@@ -24,9 +24,9 @@ irc_desc = "U:Lined Oper Helper Server"
 # THIS server's SID
 irc_sid = "502"
 # Password to send
-irc_sendpass = "CHANGEME"
+irc_sendpass = "CHANGE"
 # Password to expect
-irc_recvpass = "CHANGEME"
+irc_recvpass = "CHANGE"
 
 
 # -- Oper configuration
@@ -48,21 +48,14 @@ log_prefix_rx = "[R] "
 log_prefix_tx = "[T] "
 
 
-# -- Text configuration
-# Text to send when unauthorized users use this script
-text_unauth = "You are not authorized to use %s. " % client_nick
-# Text to send when command is completed
-text_ok = "Done. "
-# Kill message for people using the nickname defined at "nick"
-text_kill_nickresv = "This is a reserved nickname for oper uline helpers. "
-
-
 # -- Client configuration
 # This script creates a virtual user for opers to talk to, define user settings here
 # UID for the user, excluding the SID
 client_uid_part = "AAAAAA"
 # Complete UID
 client_uid = irc_sid + client_uid_part
+# How does the user message others, usually "NOTICE" or "PRIVMSG"
+client_msg = "NOTICE"
 # User's hostmask
 client_host = "services/ULineServ"
 # User modes
@@ -77,3 +70,34 @@ client_ident = "ULineServ"
 client_connaddr = "0.0.0.0"
 # User's realname, arbitary
 client_realname = "U:Line Services"
+
+
+# -- Text configuration
+# Text to send when the configured oper type Oper Up
+text_operup = "You are now a %s. " % oper_type
+# Text to send when unauthorized users use this script
+text_unauth = "You are not authorized to use %s. " % client_nick
+# Text to send when command is completed
+text_ok = "Done. "
+# Kill message for people using the nickname defined at "nick"
+text_kill_nickresv = "Nickname reserved for services"
+
+
+# -- Plugin configuration
+# Plugin list, each item the plugin's filename (importable)
+# When writing plugins, they should be in a single .py file
+# and have function handle(irc, userlist, msg) where
+# irc is the irc module object to receive, userlist is the
+# dictionary that stored {'uid': 'nickname'}, and msg is the
+# message itself
+# The handle function returns a boolean, and if it is True
+# the program will think that this line of text need not be
+# procesed by another plugin, and therefore skips this line
+# Plugins also need a boolean-evaluatable string 'trigger'
+# when it is met, the handle() command will be ran
+# See handler.py more for inspiration of writing plugins :)
+# Also check out ulined.py
+# The default is the handler plugin: It is needed in order
+# to handle commands  from opers, so leave it on.
+# Copy handler.py for a template on doing plugins.
+plugins_enabled = ['handler']
