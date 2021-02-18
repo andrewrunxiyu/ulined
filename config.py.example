@@ -74,9 +74,7 @@ client_realname = "U:Line Services"
 
 # -- Text configuration
 # Text to send when the configured oper type Oper Up
-text_operup = "You are now a %s. " % oper_type
-# Text to send when unauthorized users use this script
-text_unauth = "You are not authorized to use %s. " % client_nick
+text_operup = "You are now a %s " % oper_type
 # Text to send when command is completed
 text_ok = "Done. "
 # Kill message for people using the nickname defined at "nick"
