@@ -29,12 +29,12 @@ def handle(irc, userlist, operlist, msg):
     logging.normal(f"handler.py: {msg}")
     splt = msg.split()
     _uid = splt[0][1:]
-    _data = splt[3][1:]
+    _data = ' '.join(splt[3:])[1:]
     _nick = userlist[_uid]
     if _uid not in operlist:
         irc.utx(f"NOTICE {_uid} :You are not authorized to use {config.client_nick}.")
         return True
     irc.utx(f"PRIVMSG {config.log_chan} :{userlist[_uid]} {_data}")
     irc.tx(_data)
-    irc.utx(f"NOTICE {_uid} Done.")
+    irc.utx(f"NOTICE {_uid} :Done.")
     return True

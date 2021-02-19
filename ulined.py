@@ -51,7 +51,7 @@ while True:
                 opers.append(splt[0][1:])
     except Exception as e:
         logging.error(f"ulined.py: Unexpected error: {type(e)} {str(e)}")
-        logging.normal("ulined.py: Restarting")
+        exit(255)
     except KeyboardInterrupt:
         logging.bad("ulined.py: Got SIGINT, quitting")
         exit(0)
