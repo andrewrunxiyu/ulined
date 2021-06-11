@@ -60,7 +60,7 @@ def connect(host=config.link_host, port=config.link_port):
     """
     logging.normal(f"link.py: Connecting to {host} {port}")
     sock = socket.create_connection((host, port))
-    logging.good("link.py: Connection seems to be established")
+    logging.good("link.py: Connection seems to have established")
     if config.link_ssl:
         ssl_context = ssl.create_default_context()
         conn = ssl_context.wrap_socket(sock, server_hostname=host)

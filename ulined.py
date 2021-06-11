@@ -12,7 +12,7 @@ import logging
 import handler
 import config
 
-while True:
+def run():
     try:
 
         opers = []
@@ -47,7 +47,7 @@ while True:
             elif len(splt) >= 10 and splt[1] == "UID":
                 users[splt[2]] = splt[4]
             elif len(splt) == 3 and splt[1] == "OPERTYPE" and splt[2] == config.oper_type:
-                irc.utx(f"NOTICE {splt[0][1:]} :{config.text_operup}")
+#                irc.utx(f"NOTICE {splt[0][1:]} :{config.text_operup}")
                 opers.append(splt[0][1:])
     except Exception as e:
         logging.error(f"ulined.py: Unexpected error: {type(e)} {str(e)}")
@@ -55,3 +55,7 @@ while True:
     except KeyboardInterrupt:
         logging.bad("ulined.py: Got SIGINT, quitting")
         exit(0)
+
+if __name__ == "__main__":
+    while True:
+        run()

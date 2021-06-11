@@ -56,7 +56,12 @@ def init():
                 link.stx(f"UID {config.client_uid} {ts} {config.client_nick} {config.client_connaddr} " +
                          f"{config.client_host} {config.client_ident} {config.client_connaddr} {ts} " +
                          f"{config.client_umode} :{config.client_realname}")
+                link.utx(f"PRIVMSG NickServ :identify {config.client_nick} {config.client_nspass}")
                 link.stx(f"FJOIN {config.log_chan} {str(int(time.time()))} + :{config.client_chmode}," +
+                         f"{config.client_uid}")
+                link.stx(f"FJOIN #chat {str(int(time.time()))} + :{config.client_chmode}," +
+                         f"{config.client_uid}")
+                link.stx(f"FJOIN #test {str(int(time.time()))} + :{config.client_chmode}," +
                          f"{config.client_uid}")
                 link.stx(f"MODE {config.log_chan} +{config.client_chmode} {config.client_nick}")
             logging.normal("irc.py: IRC initialized")
