@@ -4,8 +4,9 @@
 
 ulined is a InspIRCd-compatible operator helper written in Python.
 
-Discussion IRC channel: #ulined on [AndrewIRC](https://irc.andrewyu.org) 
-or ##ulined on [freenode](https://freenode.net).
+Discussion IRC channel: #help (just too lazy to reg new chans lol ) on
+[AndrewIRC](https://irc.andrewyu.org)
+
 
 The main focus of these scripts is to make a InspIRCd-linkable server in Python,
 and if the user wants to, add functionality such as anti-spam (not implemented now).
