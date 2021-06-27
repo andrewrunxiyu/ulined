@@ -50,7 +50,8 @@ def run():
 #                irc.utx(f"NOTICE {splt[0][1:]} :{config.text_operup}")
                 opers.append(splt[0][1:])
     except Exception as e:
-        logging.error(f"ulined.py: Unexpected error: {type(e)} {str(e)}")
+        #logging.error(f"ulined.py: Unexpected error: {type(e)} {str(e)}")
+        raise
         exit(255)
     except KeyboardInterrupt:
         logging.bad("ulined.py: Got SIGINT, quitting")

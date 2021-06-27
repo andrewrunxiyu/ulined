@@ -49,13 +49,14 @@ def init():
             del splt
             logging.good("irc.py: Password is good")
             if not status['bursted']:
-                link.stx("BURST")
-                link.stx("ENDBURST")
-                status['bursted'] = True
                 ts = str(int(time.time()))
+                link.stx("BURST")
                 link.stx(f"UID {config.client_uid} {ts} {config.client_nick} {config.client_connaddr} " +
                          f"{config.client_host} {config.client_ident} {config.client_connaddr} {ts} " +
                          f"{config.client_umode} :{config.client_realname}")
+                link.stx("ENDBURST")
+                status['bursted'] = True
+                ts = str(int(time.time()))
                 link.utx(f"PRIVMSG NickServ :identify {config.client_nick} {config.client_nspass}")
                 link.stx(f"FJOIN {config.log_chan} {str(int(time.time()))} + :{config.client_chmode}," +
                          f"{config.client_uid}")
