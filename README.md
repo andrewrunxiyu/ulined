@@ -1,10 +1,13 @@
 # ulined
 
+# DEPRECATED FOR BELOW
+new project: [SpecServ](https://github.com/andrewrunxiyu/SpecServ)
+
 (c) andrewyu <andrew@andrewyu.org>
 
 ulined is a InspIRCd-compatible operator helper written in Python.
 
-Discussion IRC channel: #help (just too lazy to reg new chans lol ) on
+Discussion IRC channel: #specserv (just too lazy to reg new chans lol ) on
 [AndrewIRC](https://irc.andrewyu.org)
 
 
